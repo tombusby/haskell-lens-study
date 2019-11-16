@@ -9,3 +9,7 @@ Yep. Like the monad laws, these are expectations you should have about lenses. L
 1. Put-Put: If you modify something by inserting a particular subpart a, and then modify it again inserting a different subpart b... it's exactly as if you only did the second step.
 
 Lenses that follow these laws are called "very well-behaved".
+
+## Potentially Interesting Libraries:
+
+[Data.Aeson.Lens](http://hackage.haskell.org/package/lens-aeson-1.1/docs/Data-Aeson-Lens.html)
