@@ -21,3 +21,37 @@ Lenses that follow these laws are called "very well-behaved".
 1. Operators that have `.` in them are usually somehow "basic"
 1. Operators that have `%` in them usually take functions
 1. Operators that have `=` in them are just like their cousins where `=` is replaced by `~`, but instead of taking the whole object as an argument, they apply their modifications in a State monad.
+
+## Some Examples
+
+```haskell
+type Degrees = Double
+type Latitude = Degrees
+type Longitude = Degrees
+
+data Meetup = Meetup {
+    _name :: String
+  , _location :: (Latitude, Longitude)
+  } deriving Show
+
+meetup = meetup = Meetup {_name = "some meetup", _location = (0.345, 34.56546)}
+```
+
+Get:
+
+```haskell
+λ> view (location . _1) meetup
+0.345
+λ> meetup ^. location . _1
+0.345
+```
+
+Set:
+
+```haskell
+λ> set (location . _2) 3.14 meetup
+Meetup {_name = "some meetup", _location = (0.345,3.14)}
+λ> location . _2 .~ 3.14 $ meetup
+Meetup {_name = "some meetup", _location = (0.345,3.14)}
+```
+
