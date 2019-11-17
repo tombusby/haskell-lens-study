@@ -13,3 +13,11 @@ Lenses that follow these laws are called "very well-behaved".
 ## Potentially Interesting Libraries:
 
 [Data.Aeson.Lens](http://hackage.haskell.org/package/lens-aeson-1.1/docs/Data-Aeson-Lens.html)
+
+## Operators
+
+1. Operators that begin with `^` are kinds of views. The only example we've seen so far is `(^.)` which is... well, it's just view exactly.
+1. Operators that end with `~` are like over or set. In fact, `(.~)` == set and `(%~)` is over.
+1. Operators that have `.` in them are usually somehow "basic"
+1. Operators that have `%` in them usually take functions
+1. Operators that have `=` in them are just like their cousins where `=` is replaced by `~`, but instead of taking the whole object as an argument, they apply their modifications in a State monad.
