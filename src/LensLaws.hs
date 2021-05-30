@@ -11,6 +11,7 @@ runTests :: IO ()
 runTests = do
   testErrMsgLensLaws
 
+-- This should pass get-set and set-set but fail set-get
 msg :: Lens' Err String
 msg = lens getMsg setMsg
   where
@@ -26,10 +27,8 @@ msg2 :: Lens' Err String
 msg2 = lens getMsg setMsg
   where
     getMsg (ReallyBadError message) = message
-    -- Hrmm, I guess we just return ""?
     getMsg (ExitCode _) = ""
     setMsg (ReallyBadError _) newMessage = ReallyBadError newMessage
-    -- Nowhere to set it, I guess we do nothing?
     setMsg (ExitCode _) newMessage = ReallyBadError newMessage
 
 -- This should fail all laws
@@ -37,10 +36,8 @@ msg3 :: Lens' Err String
 msg3 = lens getMsg setMsg
   where
     getMsg (ReallyBadError message) = message
-    -- Hrmm, I guess we just return ""?
     getMsg (ExitCode _) = ""
     setMsg (ReallyBadError _) _ = ExitCode 123
-    -- Nowhere to set it, I guess we do nothing?
     setMsg (ExitCode _) _ = ReallyBadError "foo"
 
 -- get-set law: setting what you get is a NOOP
