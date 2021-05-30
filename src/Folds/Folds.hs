@@ -196,6 +196,9 @@ focussedTupleList :: Bool
 focussedTupleList = ([("Light", "Dark"), ("Happy", "Sad")] ^.. each . _1)
   == ["Light", "Happy"]
 
+-- TODO: This revealed a lack of understand of each vs folded
+-- TODO: Maybe it will be clear with the Traversals chapter
+-- TODO: given that each is a Traversal
 smushedTupleList :: Bool
 smushedTupleList = (tupleList ^.. each . _2 . folded) == "DarkSad"
   && (tupleList ^. each . _2) == "DarkSad"
