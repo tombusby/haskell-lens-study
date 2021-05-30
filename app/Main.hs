@@ -2,6 +2,7 @@ module Main where
 
 import Control.Lens
 
+import qualified ComposingLenses
 import qualified DataCorrection
 import qualified LensLaws
 import qualified PolymorphicLenses
