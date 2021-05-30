@@ -20,8 +20,8 @@ hours = lens getter setter
   where
     getter (Time h _) = h
     -- Take the hours 'mod' 24 so we always end up in the right range
-    -- We should probably be using setters to do this to avoid issues
-    -- if we ever add fields, or turn existing ones into virtual fields
+    -- We can't use getters and setters because it would involve infinitely
+    -- mututally recursive types to resolve it.
     setter (Time _ m) newHours = Time (newHours `mod` 24) m
 
 mins :: Lens' Time Int
@@ -30,8 +30,8 @@ mins = lens getter setter
     getter (Time _ m) = m
     -- Minutes overflow into hours
     setter (Time h _) newMinutes
-      -- We should probably be using setters to do this to avoid issues
-      -- if we ever add fields, or turn existing ones into virtual fields
+      -- We can't use getters and setters because it would involve infinitely
+      -- mututally recursive types to resolve it.
       = Time ((h + (newMinutes `div` 60)) `mod` 24) (newMinutes `mod` 60)
 
 data ProducePrices = ProducePrices
