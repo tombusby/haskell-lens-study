@@ -32,6 +32,17 @@ msg2 = lens getMsg setMsg
     -- Nowhere to set it, I guess we do nothing?
     setMsg (ExitCode _) newMessage = ReallyBadError newMessage
 
+-- This should fail all laws
+msg3 :: Lens' Err String
+msg3 = lens getMsg setMsg
+  where
+    getMsg (ReallyBadError message) = message
+    -- Hrmm, I guess we just return ""?
+    getMsg (ExitCode _) = ""
+    setMsg (ReallyBadError _) _ = ExitCode 123
+    -- Nowhere to set it, I guess we do nothing?
+    setMsg (ExitCode _) _ = ReallyBadError "foo"
+
 -- get-set law: setting what you get is a NOOP
 testGetSet :: Lens' Err String -> Err -> Bool
 testGetSet msg' struct = set msg' (view msg' struct) struct == struct
@@ -75,4 +86,13 @@ testErrMsgLensLaws = do
     putStrLn $ "ExitCode getset: " ++ show (testGetSet msg2 struct2)
     putStrLn $ "ExitCode setget: " ++ show (testSetGet msg2 struct2)
     putStrLn $ "ExitCode setset: " ++ show (testSetSet msg2 struct2)
+    putStrLn ""
+
+    putStrLn "Tests for msg3 lens"
+    putStrLn $ "ReallyBadError getset: " ++ show (testGetSet msg3 struct1)
+    putStrLn $ "ReallyBadError setget: " ++ show (testSetGet msg3 struct1)
+    putStrLn $ "ReallyBadError setset: " ++ show (testSetSet msg3 struct1)
+    putStrLn $ "ExitCode getset: " ++ show (testGetSet msg3 struct2)
+    putStrLn $ "ExitCode setget: " ++ show (testSetGet msg3 struct2)
+    putStrLn $ "ExitCode setset: " ++ show (testSetSet msg3 struct2)
     putStrLn ""
