@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4a682da766be877e6273f9b39907d7603cde26bd871a945b0c246ad7684767a4
+-- hash: 76726ff30bb4b8135aad9f65855969905932f7c61fce195843055e9cc5d3cc65
 
 name:           haskell-lenses
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       LensLaws
+      VirtualFields
   other-modules:
       Paths_haskell_lenses
   hs-source-dirs:
