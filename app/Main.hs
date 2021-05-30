@@ -9,6 +9,8 @@ import qualified Lenses.Operators
 import qualified Lenses.PolymorphicLenses
 import qualified Lenses.VirtualFields
 
+import qualified Folds.Folds
+
 main :: IO ()
 main = do
   Lenses.LensLaws.runTests
