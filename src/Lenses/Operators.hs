@@ -1,4 +1,4 @@
-module Operators where
+module Lenses.Operators where
 
 import Data.Char (toUpper)
 import Control.Lens

@@ -1,4 +1,4 @@
-module VirtualFields where
+module Lenses.VirtualFields where
 
 import Control.Lens
 

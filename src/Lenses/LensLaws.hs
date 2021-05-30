@@ -1,4 +1,4 @@
-module LensLaws (runTests) where
+module Lenses.LensLaws (runTests) where
 
 import Control.Lens
 

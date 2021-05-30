@@ -1,5 +1,5 @@
 {-# LANGUAGE NamedFieldPuns #-}
-module DataCorrection where
+module Lenses.DataCorrection where
 
 import Prelude hiding (round)
 import Control.Lens

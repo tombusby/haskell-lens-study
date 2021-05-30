@@ -1,4 +1,4 @@
-module PolymorphicLenses where
+module Lenses.PolymorphicLenses where
 
 import Control.Lens
 

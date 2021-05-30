@@ -2,13 +2,13 @@ module Main where
 
 import Control.Lens
 
-import qualified ComposingLenses
-import qualified DataCorrection
-import qualified LensLaws
-import qualified Operators
-import qualified PolymorphicLenses
-import qualified VirtualFields
+import qualified Lenses.ComposingLenses
+import qualified Lenses.DataCorrection
+import qualified Lenses.LensLaws
+import qualified Lenses.Operators
+import qualified Lenses.PolymorphicLenses
+import qualified Lenses.VirtualFields
 
 main :: IO ()
 main = do
-  LensLaws.runTests
+  Lenses.LensLaws.runTests

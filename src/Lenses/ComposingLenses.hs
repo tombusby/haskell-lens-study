@@ -1,4 +1,4 @@
-module ComposingLenses where
+module Lenses.ComposingLenses where
 
 import Control.Lens
 
