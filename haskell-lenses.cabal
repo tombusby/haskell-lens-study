@@ -1,10 +1,10 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.33.0.
+-- This file has been generated from package.yaml by hpack version 0.34.4.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9ed4d72b2ef521007a4ee73273d3ee5d65cc68fea8a08365c48012462d7bc20e
+-- hash: f093797157b67778da4f8c4eb4c756b3ec8bc05b9e27e102d427bae6f45e0dc1
 
 name:           haskell-lenses
 version:        0.1.0.0
@@ -30,13 +30,22 @@ library
       ComposingLenses
       DataCorrection
       LensLaws
+      Operators
       PolymorphicLenses
       VirtualFields
   other-modules:
       Paths_haskell_lenses
   hs-source-dirs:
       src
-  default-extensions: TemplateHaskell FlexibleInstances FlexibleContexts RankNTypes ScopedTypeVariables TypeApplications TypeFamilies InstanceSigs
+  default-extensions:
+      TemplateHaskell
+      FlexibleInstances
+      FlexibleContexts
+      RankNTypes
+      ScopedTypeVariables
+      TypeApplications
+      TypeFamilies
+      InstanceSigs
   build-depends:
       aeson
     , base >=4.7 && <5
