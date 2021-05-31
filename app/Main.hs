@@ -10,6 +10,7 @@ import qualified Lenses.PolymorphicLenses
 import qualified Lenses.VirtualFields
 
 import qualified Folds.Folds
+import qualified Folds.CustomFolds
 
 main :: IO ()
 main = do
