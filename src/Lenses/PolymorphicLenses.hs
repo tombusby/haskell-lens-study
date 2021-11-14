@@ -3,8 +3,8 @@ module Lenses.PolymorphicLenses where
 import Control.Lens
 
 data Preferences a = Preferences
-  { _best :: a
-  , _worst :: a
+  { _best :: a,
+    _worst :: a
   }
   deriving (Show)
 
@@ -15,7 +15,6 @@ best = lens getter setter
     -- We can't make a setter here since _best and _worst have the same
     -- type variable. We'll need a Traversal to do that.
     setter = undefined
-
 
 -- Q1
 
@@ -31,8 +30,8 @@ vorpal = lens getter setter
 
 -- Making the msg type polymorphic is the solution to Q4
 data Result e msg = Result
-  { _lineNumber :: Int
-  , _result :: Either e msg
+  { _lineNumber :: Int,
+    _result :: Either e msg
   }
 
 lineNumber :: Lens' (Result a1 a2) Int
