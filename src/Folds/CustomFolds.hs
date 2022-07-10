@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module Folds.CustomFolds where
 
 import Control.Lens
@@ -19,12 +21,14 @@ data ShipCrew = ShipCrew
 makeLenses ''ShipCrew
 
 crewMembers :: Fold ShipCrew Name
-crewMembers = folding collectCrewMembers
- where
-  -- The output type can be any Foldable
-  collectCrewMembers :: ShipCrew -> [Name]
-  collectCrewMembers crew =
-    [_captain crew, _firstMate crew] ++ _conscripts crew
+crewMembers = folding $ \ShipCrew{..} -> [_captain, _firstMate] ++ _conscripts
+
+-- Alternative version using folds
+crewMembers' :: Fold ShipCrew Name
+crewMembers' = folding $ \s ->
+  s ^.. captain
+    <> s ^.. firstMate
+    <> s ^.. conscripts . folded
 
 myCrew :: ShipCrew
 myCrew =
@@ -37,7 +41,7 @@ myCrew =
 
 getCrewMembers :: Bool
 getCrewMembers =
-  (myCrew ^.. crewMembers)
+  myCrew ^.. crewMembers
     == [ Name{getName = "Grumpy Roger"}
        , Name{getName = "Long-John Bronze"}
        , Name{getName = "One-eyed Jack"}
@@ -46,7 +50,7 @@ getCrewMembers =
 
 mapUsingTo :: Bool
 mapUsingTo =
-  (myCrew ^.. crewMembers . to getName)
+  myCrew ^.. crewMembers . to getName
     == ["Grumpy Roger", "Long-John Bronze", "One-eyed Jack", "Filthy Frank"]
 
 -- Combining Folds
@@ -57,7 +61,7 @@ crewNames = folding $ \s ->
 
 mapUsingTo' :: Bool
 mapUsingTo' =
-  (myCrew ^.. crewNames . to getName)
+  myCrew ^.. crewNames . to getName
     == ["Grumpy Roger", "Long-John Bronze", "One-eyed Jack", "Filthy Frank"]
 
 -- Ex 1
