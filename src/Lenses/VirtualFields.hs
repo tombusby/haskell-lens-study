@@ -22,6 +22,8 @@ fahrenheit :: Lens' Temperature Float
 fahrenheit = lens getter setter
  where
   getter = celsiusToFahrenheit . view celsius
+  -- Operators maybe look nicer:
+  -- setter struct val = struct & celsius .~ fahrenheitToCelsius val
   setter struct val = set celsius (fahrenheitToCelsius val) struct
 
 -- After switching to the new Kelvin format for the base record type, we simply
