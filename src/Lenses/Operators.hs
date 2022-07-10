@@ -4,12 +4,12 @@ import Control.Lens
 import Data.Char (toUpper)
 
 data Payload = Payload
-  { _weightKilos :: Int,
-    _cargo :: String
+  { _weightKilos :: Int
+  , _cargo :: String
   }
   deriving (Show)
 
-data Ship = Ship
+newtype Ship = Ship
   { _payload :: Payload
   }
   deriving (Show)
@@ -53,7 +53,7 @@ overInfixSubOperator =
     & payload . cargo .~ "Chocolate"
     & payload . weightKilos -~ 1000
 
-data Thermometer = Thermometer
+newtype Thermometer = Thermometer
   { _temperature :: Int
   }
   deriving (Show, Eq)
@@ -73,21 +73,21 @@ getOldFocusAndModifiedStructure =
 -- Ex 1
 
 data Gate = Gate
-  { _open :: Bool,
-    _oilTemp :: Float
+  { _open :: Bool
+  , _oilTemp :: Float
   }
   deriving (Show)
 
 data Army = Army
-  { _archers :: Int,
-    _knights :: Int
+  { _archers :: Int
+  , _knights :: Int
   }
   deriving (Show)
 
 data Kingdom = Kingdom
-  { _name :: String,
-    _army :: Army,
-    _gate :: Gate
+  { _name :: String
+  , _army :: Army
+  , _gate :: Gate
   }
   deriving (Show)
 
@@ -98,16 +98,16 @@ makeLenses ''Kingdom
 duloc :: Kingdom
 duloc =
   Kingdom
-    { _name = "Duloc",
-      _army =
+    { _name = "Duloc"
+    , _army =
         Army
-          { _archers = 22,
-            _knights = 14
-          },
-      _gate =
+          { _archers = 22
+          , _knights = 14
+          }
+    , _gate =
         Gate
-          { _open = True,
-            _oilTemp = 10.0
+          { _open = True
+          , _oilTemp = 10.0
           }
     }
 
@@ -151,14 +151,14 @@ multiplyNum = (2 & id *~ 3) == 6
 
 dudleyIsTheWorst :: Bool
 dudleyIsTheWorst = result == ((False, "DUDLEY - THE WORST"), 20.0)
-  where
-    result =
-      ((True, "Dudley"), 55.0)
-        & _1 . _2 <>~ " - the worst"
-        & _2 -~ 15
-        & _2 //~ 2
-        & _1 . _2 %~ map toUpper
-        & _1 . _1 &&~ False
+ where
+  result =
+    ((True, "Dudley"), 55.0)
+      & _1 . _2 <>~ " - the worst"
+      & _2 -~ 15
+      & _2 //~ 2
+      & _1 . _2 %~ map toUpper
+      & _1 . _1 &&~ False
 
 -- Ex 3
 

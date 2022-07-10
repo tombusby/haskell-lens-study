@@ -9,10 +9,10 @@ newtype Name = Name
   deriving (Show, Eq)
 
 data ShipCrew = ShipCrew
-  { _shipName :: Name,
-    _captain :: Name,
-    _firstMate :: Name,
-    _conscripts :: [Name]
+  { _shipName :: Name
+  , _captain :: Name
+  , _firstMate :: Name
+  , _conscripts :: [Name]
   }
   deriving (Show)
 
@@ -20,28 +20,28 @@ makeLenses ''ShipCrew
 
 crewMembers :: Fold ShipCrew Name
 crewMembers = folding collectCrewMembers
-  where
-    -- The output type can be any Foldable
-    collectCrewMembers :: ShipCrew -> [Name]
-    collectCrewMembers crew =
-      [_captain crew, _firstMate crew] ++ _conscripts crew
+ where
+  -- The output type can be any Foldable
+  collectCrewMembers :: ShipCrew -> [Name]
+  collectCrewMembers crew =
+    [_captain crew, _firstMate crew] ++ _conscripts crew
 
 myCrew :: ShipCrew
 myCrew =
   ShipCrew
-    { _shipName = Name "Purple Pearl",
-      _captain = Name "Grumpy Roger",
-      _firstMate = Name "Long-John Bronze",
-      _conscripts = [Name "One-eyed Jack", Name "Filthy Frank"]
+    { _shipName = Name "Purple Pearl"
+    , _captain = Name "Grumpy Roger"
+    , _firstMate = Name "Long-John Bronze"
+    , _conscripts = [Name "One-eyed Jack", Name "Filthy Frank"]
     }
 
 getCrewMembers :: Bool
 getCrewMembers =
   (myCrew ^.. crewMembers)
-    == [ Name {getName = "Grumpy Roger"},
-         Name {getName = "Long-John Bronze"},
-         Name {getName = "One-eyed Jack"},
-         Name {getName = "Filthy Frank"}
+    == [ Name{getName = "Grumpy Roger"}
+       , Name{getName = "Long-John Bronze"}
+       , Name{getName = "One-eyed Jack"}
+       , Name{getName = "Filthy Frank"}
        ]
 
 mapUsingTo :: Bool

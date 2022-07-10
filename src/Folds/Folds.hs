@@ -17,9 +17,9 @@ data Role
   deriving (Show, Eq, Ord)
 
 data CrewMember = CrewMember
-  { _name :: String,
-    _role :: Role,
-    _talents :: [String]
+  { _name :: String
+  , _role :: Role
+  , _talents :: [String]
   }
   deriving (Show, Eq, Ord)
 
@@ -29,10 +29,10 @@ roster :: S.Set CrewMember
 roster =
   S.fromList
     -- Name      Name               Role         Talents
-    [ CrewMember "Grumpy Roger" Gunner ["Juggling", "Arbitrage"],
-      CrewMember "Long-John Bronze" PowderMonkey ["Origami"],
-      CrewMember "Salty Steve" PowderMonkey ["Charcuterie"],
-      CrewMember "One-eyed Jack" Navigator []
+    [ CrewMember "Grumpy Roger" Gunner ["Juggling", "Arbitrage"]
+    , CrewMember "Long-John Bronze" PowderMonkey ["Origami"]
+    , CrewMember "Salty Steve" PowderMonkey ["Charcuterie"]
+    , CrewMember "One-eyed Jack" Navigator []
     ]
 
 -- Can't set and no polymorphic actions, hence simpler type signature
@@ -63,12 +63,12 @@ foldPair :: Bool
 foldPair = (("foo", 42) ^.. folded) == [42]
 
 foldedMayReturnEmpty :: Bool
-foldedMayReturnEmpty = ((Nothing :: Maybe Void) ^.. folded) == []
+foldedMayReturnEmpty = null $ (Nothing :: Maybe Void) ^.. folded
 
 foldingMapOnlyFocusesValues :: Bool
 foldingMapOnlyFocusesValues = (newMap ^.. folded) == ["Captain", "First Mate"]
-  where
-    newMap = M.fromList [("Jack", "Captain"), ("Will", "First Mate")]
+ where
+  newMap = M.fromList [("Jack", "Captain"), ("Will", "First Mate")]
 
 -- Using lenses as folds
 
@@ -83,8 +83,8 @@ focusAllRoles = roster ^.. folded . role
 
 foldsCanBeUsedOnNonFoldableValues :: [Role]
 foldsCanBeUsedOnNonFoldableValues = jerry ^.. role
-  where
-    jerry = CrewMember "Jerry" PowderMonkey ["Ice Cream Making"]
+ where
+  jerry = CrewMember "Jerry" PowderMonkey ["Ice Cream Making"]
 
 -- Note that Folds are valid Traversals also:
 -- both :: Bitraversable r => Traversal (r a a) (r b b) a b
@@ -131,24 +131,24 @@ concat' = toListOf (folded . folded) [[1, 2, 3], [4, 5, 6]] == [1 .. 6]
 
 smushed :: Bool
 smushed = toListOf (folded . folded) newMap == "CaptainFirst Mate"
-  where
-    newMap :: M.Map String String
-    newMap = M.fromList [("Jack", "Captain"), ("Will", "First Mate")]
+ where
+  newMap :: M.Map String String
+  newMap = M.fromList [("Jack", "Captain"), ("Will", "First Mate")]
 
 bothThenFolded :: Bool
 bothThenFolded = (tuple ^.. both . folded) == "HelloIt's me"
-  where
-    tuple :: (String, String)
-    tuple = ("Hello", "It's me")
+ where
+  tuple :: (String, String)
+  tuple = ("Hello", "It's me")
 
 whySoSerious :: Bool
 whySoSerious = (("Why", "So", "Serious?") ^.. each) == ["Why", "So", "Serious?"]
 
 tripleEach :: Bool
 tripleEach = (quotes ^.. each . each . each) == "WhySoSerious?ThisisSPARTA"
-  where
-    quotes :: [(T.Text, T.Text, T.Text)]
-    quotes = [("Why", "So", "Serious?"), ("This", "is", "SPARTA")]
+ where
+  quotes :: [(T.Text, T.Text, T.Text)]
+  quotes = [("Why", "So", "Serious?"), ("This", "is", "SPARTA")]
 
 -- Ex 2
 
@@ -199,9 +199,9 @@ smushedTupleList :: Bool
 smushedTupleList =
   (tupleList ^.. each . _2 . folded) == "DarkSad"
     && (tupleList ^. each . _2) == "DarkSad"
-  where
-    tupleList :: [(String, String)]
-    tupleList = [("Light", "Dark"), ("Happy", "Sad")]
+ where
+  tupleList :: [(String, String)]
+  tupleList = [("Light", "Dark"), ("Happy", "Sad")]
 
 basicEach :: Bool
 basicEach = (("Bond", "James", "Bond") ^.. each) == ["Bond", "James", "Bond"]

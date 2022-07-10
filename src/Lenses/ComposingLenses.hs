@@ -5,21 +5,21 @@ import Control.Lens
 -- Example 1
 
 data Person = Person
-  { _name :: String,
-    _address :: Address
+  { _name :: String
+  , _address :: Address
   }
   deriving (Show)
 
 data Address = Address
-  { _streetAddress :: StreetAddress,
-    _city :: String,
-    _country :: String
+  { _streetAddress :: StreetAddress
+  , _city :: String
+  , _country :: String
   }
   deriving (Show)
 
 data StreetAddress = StreetAddress
-  { _streetNumber :: String,
-    _streetName :: String
+  { _streetNumber :: String
+  , _streetName :: String
   }
   deriving (Show)
 
@@ -30,16 +30,16 @@ makeLenses ''StreetAddress
 sherlock :: Person
 sherlock =
   Person
-    { _name = "S. Holmes",
-      _address =
+    { _name = "S. Holmes"
+    , _address =
         Address
           { _streetAddress =
               StreetAddress
-                { _streetNumber = "221A",
-                  _streetName = "Baker Street"
-                },
-            _city = "London",
-            _country = "England"
+                { _streetNumber = "221A"
+                , _streetName = "Baker Street"
+                }
+          , _city = "London"
+          , _country = "England"
           }
     }
 
@@ -78,8 +78,8 @@ data Wool = Wool deriving (Show)
 data Sweater = Sweater deriving (Show)
 
 data Item a = Item
-  { _material :: a,
-    _amount :: Int
+  { _material :: a
+  , _amount :: Int
   }
   deriving (Show)
 
