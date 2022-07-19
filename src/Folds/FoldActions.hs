@@ -54,3 +54,9 @@ q2_3 =
   foldFunc :: Ord a => a -> Maybe a -> Maybe a
   foldFunc t1 Nothing = Just t1
   foldFunc t1 (Just t2) = Just $ if t1 > t2 then t1 else t2
+
+-- Ex 3
+
+q3_2 :: Bool
+q3_2 =
+  foldrOf (folded . folded) (\x xs -> xs ++ [x]) [] ["a", "b", "c"] == "cba"
